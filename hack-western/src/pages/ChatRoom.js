@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
+import WhiteBoard from "../components/WhiteBoard"
 
-const socket = io.connect("http://localhost:8080")
+const socket = io.connect("https://main.d2xollx4ffghdp.amplifyapp.com/")
 
 function ChatRoom() {
 
@@ -100,16 +101,16 @@ function ChatRoom() {
     }
 
     return (
-    <div className="flex items-center justify-center gap-10 h-screen">
+    <div className="grid grid-cols-3 items-center justify-center h-screen">
         <div className="video">
-        {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px"}} />}
+        {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "240px"}} />}
         </div>
         <div className="video">
         {callAccepted && !callEnded ?
-        <video playsInline ref={userVideo} autoPlay style={{ width: "300px"}} />:
+        <video playsInline ref={userVideo} autoPlay style={{ width: "240px"}} />:
         null}
         </div>
-        <div className="grid grid-rows-4">
+        <div className="grid grid-rows-5">
             <p>Enter Username</p>
             <input
             label="Name"
@@ -136,14 +137,14 @@ function ChatRoom() {
             )}
             {idToCall}
             </div>
-        </div>
-        <div>
-        {receivingCall && !callAccepted ? (
+            <div>
+            {receivingCall && !callAccepted ? (
             <div className="caller">
             <h1 className="font-bold text-3xl">{name} is Calling</h1>
             <button className="hidden md:inline bg-slate-900 text-white text-sm px-2 lg:px-4 py-1 lg:py-2 rounded-full dark:bg-slate-800" onClick={answerCall}>Answer</button>
             </div>
         ) : null}
+        </div>
         </div>
     </div>
     );
