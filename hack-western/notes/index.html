@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shared Whiteboard</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      border: 1px solid #000;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="whiteboard" width="1280" height="720"></canvas>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const canvas = document.getElementById('whiteboard');
+    const context = canvas.getContext('2d');
+    const paths = {}; // Store separate paths for each user
+
+    canvas.addEventListener('mousedown', (e) => {
+      drawing = true;
+      drawStart(e);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (drawing) {
+        draw(e);
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      drawing = false;
+      drawEnd();
+    });
+
+    function drawStart(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Start a new path for the user
+      paths[socket.id] = { x, y };
+
+      context.beginPath();
+      context.moveTo(x, y);
+
+      // Emit a 'draw' event with the starting coordinates to the server
+      socket.emit('draw', { x, y, start: true });
+    }
+
+    function draw(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Draw on the user's path
+      context.lineWidth = 2;
+      context.lineCap = 'round';
+      context.strokeStyle = '#000';
+      context.lineTo(x, y);
+      context.stroke();
+
+      // Update the user's path
+      paths[socket.id] = { x, y };
+
+      // Emit a 'draw' event with the coordinates to the server
+      socket.emit('draw', { x, y });
+    }
+
+    function drawEnd() {
+      // Reset the path for the user
+      context.beginPath();
+
+      // Emit a 'draw' event with the end flag to the server
+      socket.emit('draw', { end: true });
+    }
+
+    socket.on('draw', (data) => {
+      if (data.start) {
+        // Start a new path for the user
+        paths[data.id] = { x: data.x, y: data.y };
+        context.beginPath();
+        context.moveTo(data.x, data.y);
+      } else if (data.end) {
+        // Reset the path for the user
+        context.beginPath();
+      } else {
+        // Draw on the user's path
+        context.lineWidth = 2;
+        context.lineCap = 'round';
+        context.strokeStyle = '#000';
+        context.lineTo(data.x, data.y);
+        context.stroke();
+        paths[data.id] = { x: data.x, y: data.y };
+      }
+    });
+
+    socket.on('clear', () => {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  </script>
+</body>
+</html>
