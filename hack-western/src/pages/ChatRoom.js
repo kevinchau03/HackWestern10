@@ -4,7 +4,7 @@ import Peer from "simple-peer"
 import io from "socket.io-client"
 import WhiteBoard from "../components/WhiteBoard"
 
-const socket = io.connect("https://main.d2xollx4ffghdp.amplifyapp.com/")
+const socket = io.connect("http://172.30.73.4:8080")
 
 function ChatRoom() {
 
