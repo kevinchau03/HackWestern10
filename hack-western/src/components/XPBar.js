@@ -1,15 +1,15 @@
 // XPBar.js
 import React from 'react';
 
-const XPBar = ({ currentXP, maxXP, xpLevel }) => {
+const XPBar = ({ currentXP, xpLevel }) => {
   const calculatePercentage = () => {
-    return (currentXP / maxXP) * 100;
+    return (currentXP / 100) * 100;
   };
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-10 bg-gray-200 overflow-hidden">
+    <div className="fixed bottom-0 left-0 w-full bg-gray-200 overflow-hidden">
       <div
-        className="h-full bg-blue-300"
+        className="h-10 bg-blue-300"
         style={{ width: `${calculatePercentage()}%` }}
       />
       <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full text-white">
@@ -20,3 +20,4 @@ const XPBar = ({ currentXP, maxXP, xpLevel }) => {
 };
 
 export default XPBar;
+

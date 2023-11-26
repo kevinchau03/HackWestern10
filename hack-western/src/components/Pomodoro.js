@@ -6,6 +6,7 @@ const PomodoroTimer = ({ userData, updateUserData }) => {
   const [isActive, setIsActive] = useState(false);
   const [grindComplete, setGrindComplete] = useState(false);
   const [customTime, setCustomTime] = useState('');
+  const [experienceAdded, setExperienceAdded] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -33,14 +34,14 @@ const PomodoroTimer = ({ userData, updateUserData }) => {
   }, [isActive, minutes, seconds]);
 
   useEffect(() => {
-    if (grindComplete) {
-      // Update user data with the gained experience (e.g., add 5 experience)
+    if (grindComplete && !experienceAdded) {
       updateUserData({
         ...userData,
-        experience: userData.experience + 5,
+        experience: userData.experience + 10,
       });
+      setExperienceAdded(true);
     }
-  }, [grindComplete, updateUserData, userData]);
+  }, [grindComplete, experienceAdded, updateUserData, userData]);
 
   const toggleTimer = () => {
     setIsActive((prevIsActive) => !prevIsActive);
@@ -49,6 +50,7 @@ const PomodoroTimer = ({ userData, updateUserData }) => {
   const resetTimer = () => {
     setIsActive(false);
     setGrindComplete(false);
+    setExperienceAdded(false);
     setMinutes(25);
     setSeconds(0);
   };
@@ -106,4 +108,3 @@ const PomodoroTimer = ({ userData, updateUserData }) => {
 };
 
 export default PomodoroTimer;
-

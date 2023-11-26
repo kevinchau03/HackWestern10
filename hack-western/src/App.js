@@ -1,14 +1,12 @@
-import PomodoroTimer from "./components/Pomodoro";
+import Home from "./Home"
+import Main from "./Main"
 
 function App() {
-  const currentXP = 250; // Replace with your actual XP
-  const maxXP = 500; // Replace with your maximum XP
-  const xpLevel = 1;
 
   return (
     <div>
-      <h1 className="font-bold text-9xl text-blue-500">HELLO WORLD!</h1>
-      <PomodoroTimer />
+      <Home />
+      <Main />
     </div>
   );
 }
