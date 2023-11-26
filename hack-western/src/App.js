@@ -6,9 +6,6 @@ import Main from './Main';
 import Checklist from './components/Checklist';
 
 function App() {
-  const currentXP = 250; // Replace with your actual XP
-  const maxXP = 500; // Replace with your maximum XP
-  const xpLevel = 1;
 
   const [showXPBar, setShowXPBar] = useState(false);
 
@@ -34,8 +31,6 @@ function App() {
     <div>
       <Home />
       <Main />
-      <Checklist />
-      {showXPBar && <XPBar currentXP={currentXP} maxXP={maxXP} xpLevel={xpLevel} />}
     </div>
   );
 }

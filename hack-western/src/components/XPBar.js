@@ -1,9 +1,9 @@
 // XPBar.js
 import React from 'react';
 
-const XPBar = ({ currentXP, maxXP, xpLevel }) => {
+const XPBar = ({ currentXP, xpLevel }) => {
   const calculatePercentage = () => {
-    return (currentXP / maxXP) * 100;
+    return (currentXP / 100) * 100;
   };
 
   return (
@@ -20,3 +20,4 @@ const XPBar = ({ currentXP, maxXP, xpLevel }) => {
 };
 
 export default XPBar;
+
