@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -38,10 +40,14 @@
 }
 
 /* App.css */
+/* Add a shared font class for both "LEVEL UP" and "Welcome to" */
+.font-heading {
+  font-family: 'font-impact', sans-serif;
+}
+
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  overflow: hidden;
 }
 
 .app-container {
@@ -59,16 +65,26 @@ body {
   text-align: center;
   color: #ffffff;
   margin-top: 20px;
-  font-size: 40px; /* Set an initial smaller font size */
+  font-size: 40px;
   border: 5px solid #3498db;
   padding: 10px;
   text-shadow: 10px 3px 5px #3498db;
-  animation: growText 0.9s forwards; /* Adjust duration and keep the final size */
+  animation: growText 0.9s forwards;
 }
 
 @keyframes growText {
   to {
-    font-size: 120px; /* Stay at the final font size */
+    font-size: 120px;
   }
 }
+
+/* Apply the shared font class to "LEVEL UP" and "Welcome to" */
+.font-heading.text-5xl {
+  font-size: 5xl;
+}
+
+.font-heading.text-8xl {
+  font-size: 8xl;
+}
+
 
