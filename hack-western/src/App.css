@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.app-container {
+  background: linear-gradient(to bottom, #3498db, #ffffff);
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.font-impact {
+  font-family: 'Impact', sans-serif;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 20px;
+  font-size: 40px; /* Set an initial smaller font size */
+  border: 5px solid #3498db;
+  padding: 10px;
+  text-shadow: 10px 3px 5px #3498db;
+  animation: growText 0.9s forwards; /* Adjust duration and keep the final size */
+}
+
+@keyframes growText {
+  to {
+    font-size: 120px; /* Stay at the final font size */
+  }
+}
+
